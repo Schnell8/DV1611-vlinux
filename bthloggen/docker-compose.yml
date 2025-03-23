@@ -1,0 +1,22 @@
+version: "3"
+networks:
+    dbwebb:
+services:
+    server:
+        image: "christopherschnell18/bthloggen-server:1.0"
+        container_name: "bthserver"
+        ports:
+            - "1338:1338"
+        volumes:
+            - "./data/:/data/"
+        networks:
+            dbwebb:
+        restart:
+            "always"
+    client:
+        image: "christopherschnell18/bthloggen-client:1.0"
+        container_name: "bthclient"
+        networks:
+            dbwebb:
+        links:
+            - "server:server"
